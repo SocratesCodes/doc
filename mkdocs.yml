@@ -4,12 +4,12 @@ theme:
   name: material
   features:
     - navigation.sections
-nav:
-  - General:
-    - index.md
-  - Development:
-    - dev/preparation.md
 markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format

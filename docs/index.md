@@ -5,6 +5,23 @@ SocratesCode is an AI-powered programming tutor using [Socratic methodlogy](http
 !!! warning "Warning"
     This documentation won't discuss much about how to use SocratesCode aside from few main use cases and will mainly focus on deployment and development setup.
 
-# Quick start
+To get started, use the following guides as a checklist to help you host and develop our application:
 
-- Before we start, please refer to [Preparation](dev/preparation.md) to setup prerequisities to run our application.
+## Setup development
+- Refer to [Preparation](dev/preparation.md) to setup prerequisities to run our application.
+- Setup necessary [environment variables](dev/environment.md) and configuration.
+- Then, run our application
+- Ensure the application is running correctly
+
+## Deploy to your own server
+- See the deployment prerequisites for necessary software.
+- Before deploying, view the requirements to see if our application can run on your server.
+- Follow the deployment guide here to deploy your application to your own server.
+
+
+## SocratesCode Tutorials
+Already got the application running, or have it deployed to your own server? Then, you can start to use SocratesCode to learn programming.
+
+- Chatting with our AI tutor
+- Create a new account
+- Manage your account
