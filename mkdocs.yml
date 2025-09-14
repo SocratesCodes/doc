@@ -1,0 +1,15 @@
+site_name: SocratesCode Development Docs
+# site_url: https://mydomain.org/mysite - to be added later
+theme:
+  name: material
+  features:
+    - navigation.sections
+nav:
+  - General:
+    - index.md
+  - Development:
+    - dev/preparation.md
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
