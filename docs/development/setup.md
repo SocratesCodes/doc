@@ -55,4 +55,10 @@ This will start all server development servers concurrently.
 !!! warning "Warning"
     Ensure you have set up all necessary environment variables in the `.env` files before starting the development server to avoid any possible bugs that stem from misconfiguration.
 
-Now that you have set up the development environment and run the whole application stack, you can begin using SocratesCode for testing, development or simply just use it. To validate the development environment, you can visit localhost:3000 to access the frontend page. In the next guide we will discuss how to use/validate SocratesCode functionality working correctly.
+Now that you have set up the development environment and run the whole application stack, you can begin using SocratesCode for testing, development or simply just use it. To validate the development environment, you can visit localhost:3000 to access the frontend page. 
+
+## What to do from here
+After setting up the development environment, you should [validate functionality] and make sure everything is working as expected.
+
+Want to deploy to your own server? See [Deployment](/deployment/intro.md) for more details.
+
