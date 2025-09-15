@@ -5,7 +5,7 @@ SocratesCode is an AI-powered programming tutor using [Socratic methodlogy](http
 !!! warning "Warning"
     This documentation won't discuss much about how to use SocratesCode aside from few main use cases and will mainly focus on deployment and development setup.
 
-To get started, use the following guides as a checklist to help you host and develop our application:
+To get started, use the following guides as a checklist to help you host and/or develop our application:
 
 ## Setup development
 - Refer to [Preparation](development/preparation.md) to setup prerequisities to run our application.

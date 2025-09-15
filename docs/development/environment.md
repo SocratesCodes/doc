@@ -41,6 +41,11 @@ MINIO_DEFAULT_REGION=us-east-1 # default region
 
 Qdrant: WIP
 
+Additionally, agent token is needed so that our backend's socket.io works properly
+```env
+AGENT_TOKEN=
+```
+
 ## Backend service
 
 These below configurations will be used in the `.env` file in the `/apps/backend/` folder for running backend service.
