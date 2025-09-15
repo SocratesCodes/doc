@@ -214,7 +214,7 @@ class MockModelClient:
     """Mock OpenAI client for testing"""
     def __init__(self):
         pass
-    
+
     async def create_completion(self, messages):
         return MockResponse("Test response with P1, P2, P3 questions")
 ```
@@ -258,7 +258,7 @@ describe('MessageService', () => {
     };
 
     const savedMessage = await saveMessage('test-user-id', message);
-    
+
     expect(savedMessage).toBeDefined();
     expect(savedMessage.message.message).toBe('Test message');
     expect(savedMessage.source).toBe('user');
@@ -266,7 +266,7 @@ describe('MessageService', () => {
 
   it('should retrieve messages by conversation ID', async () => {
     const messages = await getMessagesByConversationId('test-conv-id', 'test-user-id');
-    
+
     expect(Array.isArray(messages)).toBe(true);
     expect(messages.length).toBeGreaterThan(0);
   });
@@ -422,9 +422,9 @@ chore: update dependencies
 // apps/backend/src/routes/messageRouter.js
 import express from 'express';
 import { body, query, validationResult } from 'express-validator';
-import { 
-  getMessagesByConversationId, 
-  saveMessage 
+import {
+  getMessagesByConversationId,
+  saveMessage
 } from '../services/messageService.js';
 
 const router = express.Router();
@@ -444,7 +444,7 @@ const router = express.Router();
  *       200:
  *         description: Messages retrieved successfully
  */
-router.get('/', 
+router.get('/',
   [
     query('conversation_id').isUUID().withMessage('Invalid conversation ID'),
     query('limit').optional().isInt({ min: 1, max: 100 }).withMessage('Limit must be between 1-100'),
@@ -459,12 +459,12 @@ router.get('/',
     try {
       const { conversation_id, limit = 50, page = 1 } = req.query;
       const messages = await getMessagesByConversationId(
-        conversation_id, 
-        req.user.user_id, 
-        parseInt(limit), 
+        conversation_id,
+        req.user.user_id,
+        parseInt(limit),
         parseInt(page)
       );
-      
+
       res.json({ messages, page: parseInt(page), limit: parseInt(limit) });
     } catch (error) {
       console.error('Error fetching messages:', error);
@@ -564,13 +564,13 @@ interface ChatMessageProps {
   className?: string;
 }
 
-export default function ChatMessage({ 
-  message, 
-  onFeedback, 
-  className 
+export default function ChatMessage({
+  message,
+  onFeedback,
+  className
 }: ChatMessageProps) {
   const isUser = message.source === 'user';
-  
+
   return (
     <div className={cn(
       "flex w-full",
@@ -579,12 +579,12 @@ export default function ChatMessage({
     )}>
       <div className={cn(
         "max-w-[80%] rounded-lg px-4 py-2",
-        isUser 
-          ? "bg-blue-500 text-white" 
+        isUser
+          ? "bg-blue-500 text-white"
           : "bg-gray-100 text-gray-900"
       )}>
         <ReactMarkdown>{message.content}</ReactMarkdown>
-        
+
         {!isUser && onFeedback && (
           <MessageFeedback
             messageId={message.id}
@@ -673,23 +673,23 @@ export const useConversationStore = create<ConversationStore>()(
     (set, get) => ({
       conversations: [],
       currentConversationId: null,
-      
-      setCurrentConversation: (id) => 
+
+      setCurrentConversation: (id) =>
         set({ currentConversationId: id }),
-      
-      addConversation: (conversation) => 
+
+      addConversation: (conversation) =>
         set(state => ({
           conversations: [...state.conversations, conversation]
         })),
-      
-      updateConversation: (id, updates) => 
+
+      updateConversation: (id, updates) =>
         set(state => ({
           conversations: state.conversations.map(conv =>
             conv.id === id ? { ...conv, ...updates } : conv
           )
         })),
-      
-      deleteConversation: (id) => 
+
+      deleteConversation: (id) =>
         set(state => ({
           conversations: state.conversations.filter(conv => conv.id !== id)
         }))
@@ -733,24 +733,24 @@ class BaseCustomAgent(AssistantAgent, ABC):
             system_message=system_message,
             **kwargs
         )
-    
+
     @abstractmethod
     async def process_message(self, message: str) -> str:
         """Process incoming message and return response"""
         pass
-    
+
     async def on_messages(
-        self, 
-        messages: Sequence[BaseChatMessage], 
+        self,
+        messages: Sequence[BaseChatMessage],
         cancellation_token: CancellationToken
     ) -> Response:
         if not messages:
             return TextMessage(content="No message to process.")
-        
+
         # Custom processing logic
         latest_message = messages[-1].content if messages else ""
         processed_response = await self.process_message(latest_message)
-        
+
         return TextMessage(content=processed_response)
 ```
 
@@ -765,7 +765,7 @@ class MemoryManager:
     def __init__(self, config_path: Optional[str] = None):
         self.config_path = config_path or os.getenv('MEM0_CONFIG_PATH')
         self.memory = Memory()
-    
+
     async def store_evaluation(
         self,
         user_id: str,
@@ -782,19 +782,19 @@ class MemoryManager:
                 "user_question": user_question,
                 "timestamp": datetime.now().isoformat()
             }
-            
+
             result = self.memory.add(
                 messages=[evaluation],
                 user_id=user_id,
                 metadata=memory_data
             )
-            
+
             return result is not None
-            
+
         except Exception as e:
             print(f"Error storing evaluation: {e}")
             return False
-    
+
     async def get_memories(
         self,
         user_id: str,
@@ -806,27 +806,27 @@ class MemoryManager:
             search_filters = {"user_id": user_id}
             if conversation_id:
                 search_filters["conversation_id"] = conversation_id
-            
+
             memories = self.memory.search(
                 query="user assessment and learning progress",
                 user_id=user_id,
                 limit=10
             )
-            
+
             if not memories:
                 return ""
-            
+
             # Format memories as context
             context_lines = ["=== User Assessment History ==="]
-            
+
             for memory in memories:
                 if 'evaluation' in memory.get('metadata', {}):
                     evaluation = memory['metadata']['evaluation']
                     context_lines.append(f"Assessment: {evaluation}")
-            
+
             context_lines.append("=== End of Assessment History ===")
             return "\n".join(context_lines)
-            
+
         except Exception as e:
             print(f"Error retrieving memories: {e}")
             return ""
@@ -843,21 +843,21 @@ class ConfigLoader:
     def __init__(self, config_path: str):
         self.config_path = config_path
         self.config = self._load_config()
-    
+
     def _load_config(self) -> Dict[str, Any]:
         """Load configuration from YAML file"""
         try:
             with open(self.config_path, 'r') as file:
                 config = yaml.safe_load(file)
-                
+
             # Substitute environment variables
             return self._substitute_env_vars(config)
-            
+
         except FileNotFoundError:
             raise FileNotFoundError(f"Configuration file not found: {self.config_path}")
         except yaml.YAMLError as e:
             raise ValueError(f"Invalid YAML configuration: {e}")
-    
+
     def _substitute_env_vars(self, config: Any) -> Any:
         """Recursively substitute environment variables in config"""
         if isinstance(config, dict):
@@ -869,12 +869,12 @@ class ConfigLoader:
             return os.getenv(env_var, config)
         else:
             return config
-    
+
     def get_agent_config(self, agent_name: str) -> Dict[str, Any]:
         """Get configuration for specific agent"""
         if agent_name not in self.config:
             raise KeyError(f"Agent configuration not found: {agent_name}")
-        
+
         return self.config[agent_name]
 ```
 
@@ -889,28 +889,28 @@ from datetime import datetime
 
 def setup_logging(level=logging.INFO):
     """Set up logging configuration"""
-    
+
     # Create formatters
     formatter = logging.Formatter(
         '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     )
-    
+
     # Console handler
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setFormatter(formatter)
-    
+
     # File handler
     file_handler = logging.FileHandler(
         f'logs/app_{datetime.now().strftime("%Y%m%d")}.log'
     )
     file_handler.setFormatter(formatter)
-    
+
     # Root logger
     logger = logging.getLogger()
     logger.setLevel(level)
     logger.addHandler(console_handler)
     logger.addHandler(file_handler)
-    
+
     return logger
 
 # Usage in modules
@@ -952,11 +952,11 @@ export function debugTimeEnd(label: string) {
 // utils/performance.js
 export class PerformanceMonitor {
   static timers = new Map();
-  
+
   static start(label) {
     this.timers.set(label, performance.now());
   }
-  
+
   static end(label) {
     const startTime = this.timers.get(label);
     if (startTime) {
@@ -967,7 +967,7 @@ export class PerformanceMonitor {
     }
     return null;
   }
-  
+
   static async measureAsync(label, asyncFn) {
     this.start(label);
     try {

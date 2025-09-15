@@ -8,8 +8,8 @@ SocratesCode is an AI-powered programming tutor using [Socratic methodlogy](http
 To get started, use the following guides as a checklist to help you host and develop our application:
 
 ## Setup development
-- Refer to [Preparation](dev/preparation.md) to setup prerequisities to run our application.
-- Setup necessary [environment variables](dev/environment.md) and configuration.
+- Refer to [Preparation](development/preparation.md) to setup prerequisities to run our application.
+- Setup necessary [environment variables](development/environment.md) and configuration.
 - Then, run our application
 - Ensure the application is running correctly
 
