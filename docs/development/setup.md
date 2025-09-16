@@ -18,7 +18,6 @@ git checkout demo # checkout to demo branch to get the latest version
             │   ├── docs/
             │   └── frontend/
             ├── .gitignore
-            ├── LICENSE
             ├── README.md
             └── ...
         ```
