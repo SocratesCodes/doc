@@ -2,7 +2,7 @@
 
 This guide will cover the authentication feature of SocratesCode.
 
-This guide assumes you have already setup/deployed the application. See [here](deployment/intro.md) for more details.
+This guide assumes you have already setup/deployed the application. See [here](../deployment/intro.md) for more details.
 
 ## Create a new account
 On the homepage:

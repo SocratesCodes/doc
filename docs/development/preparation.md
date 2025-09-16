@@ -25,6 +25,6 @@ Beside local, there are several cloud services that you will need to configure t
 - **Mem0**: A Mem0 account is required to use the memory features of SocratesCode. You can sign up for a free account on the [Mem0 website](https://www.mem0.ai/).
 - **Langfuse**: A Langfuse account is required to use the tracing features of SocratesCode. You can sign up for a free account on the [Langfuse website](https://langfuse.com/).
 
-You may need to deploy some of the following services to your own server (an option to local development is possible, however we haven't tested it yet and can't guarantee it will work). See [Cloud development] for more detail:
+You may need to deploy some of the following services to your own server (an option to local development is possible, however we haven't tested it yet and can't guarantee it will work). See [Cloud development](../deployment/intro.md) for more detail:
 
 - **MinIO**: File storage, s3-compatible object storage which is used for storing team state and files.

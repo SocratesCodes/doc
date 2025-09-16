@@ -58,7 +58,7 @@ This will start all server development servers concurrently.
 Now that you have set up the development environment and run the whole application stack, you can begin using SocratesCode for testing, development or simply just use it. To validate the development environment, you can visit localhost:3000 to access the frontend page. 
 
 ## What to do from here
-After setting up the development environment, you should [validate functionality] and make sure everything is working as expected.
+After setting up the development environment, you should [try out some of the tutorials](../tutorial/intro.md) and make sure everything is working as expected.
 
 Ready to deploy to your own server? See [Deployment](../deployment/intro.md) for more details.
 
