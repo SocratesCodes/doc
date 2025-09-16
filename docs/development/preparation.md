@@ -1,4 +1,4 @@
-# Preparation
+# Prepare your local development environment
 
 To prepare your local development environment, you will need to install the following prerequisites and configure the following cloud services.
 
