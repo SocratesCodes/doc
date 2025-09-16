@@ -4,7 +4,7 @@ This guide will cover the chatting feature of SocratesCode.
 
 This guide assumes you have already setup/deployed the application and have a user account. See [here](auth.md) for more details.
 
-## Chatting with our AI tutor
+## Send message to AI tutor
 This can be used regardless of whether you have logged in or not. However, it is recommended to log in to use the full features of SocratesCode.
 
 1. Go to 'Chat' page

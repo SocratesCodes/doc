@@ -10,6 +10,7 @@ These details will be discussed at greater detail in the following guides:
 ## Deployment checklist
 - Check if your server meets the [requirements](requirements.md)
 - Get your server ready with [necessary software](preparation.md)
+- Setup MinIO (see [here](../additional setup/minio.md) for more details)
 - Configure necessary [environment variables](environment.md)
     - It is similar to [development environment variables](../development/environment.md) for local development, but with some differences
 - Start deployment with [our deployment guide](deployment.md)

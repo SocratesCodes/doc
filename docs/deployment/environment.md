@@ -37,3 +37,5 @@ and also change the websocket url to the actual websocket url to connect to the 
 ```env
 WEBSOCKET_URL=http://backend_service:5000
 ```
+
+For MinIO, you do not need to add `MINIO_PORT`, instead use `MINIO_ENDPOINT` to connect to the MinIO service.

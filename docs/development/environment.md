@@ -41,10 +41,7 @@ MINIO_DEFAULT_REGION=us-east-1 # default region
 
 <!-- Qdrant: WIP -->
 
-Additionally, agent token is needed so that our backend's socket.io works properly
-```env
-AGENT_TOKEN=
-```
+
 
 ## Backend service
 
@@ -79,7 +76,16 @@ MINIO_USE_SSL= # true or false - true if you are using SSL, false if you are not
 MINIO_ACCESS_KEY= # access key
 MINIO_SECRET_KEY= # secret key
 MINIO_BUCKET= # avater bucket
+MINIO_PORT= # port, default is 9000
 ```
+
+You should have already setup the MinIO (see [here](../additional setup/minio.md) for more details). After that, you should set the following environment variables:
+
+```env
+MINIO_BUCKET= # avater bucket
+JSON_BUCKET= # json files bucket
+```
+
 !!! info "For MinIO local development"
     We currently had only tested MinIO with version deployed on the cloud (see here). Hosting MinIO locally haven't tested and we can't guarantee it will work.
 

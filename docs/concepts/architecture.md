@@ -1,4 +1,4 @@
-# SocratesCode System Architecture
+# SocratesCode System Architecture Reference
 
 ## Application Overview
 

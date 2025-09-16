@@ -9,7 +9,8 @@ The following guide was written based on our team experience with RACE Hub (powe
 
 - Docker
 - Docker Compose
-- [Coolify](https://coolify.io/)
+- [Coolify](https://coolify.io/) (view [here](https://coolify.io/self-hosted/) for one-command setup)
+
 
 Optionally you may also want to have an own domain name and a DNS provider if
 your platform doesn't support open custom ports (This can be workaround via VPC
