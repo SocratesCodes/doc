@@ -15,4 +15,4 @@ These details will be discussed at greater detail in the following guides:
 - Start deployment with [our deployment guide](deployment.md)
 - Verify it works by check out some of the [tutorials](../tutorial/intro.md)
 
-Additionally, you may also want to monitor the application in production to catch any performance issues or bugs. See [here](monitoring.md) for more details.
+Additionally, you may also want to monitor the application in production to catch any performance issues or bugs. See [here](../additional setup/langfuse.md) for more details.

@@ -7,21 +7,22 @@ SocratesCode is an AI-powered programming tutor using [Socratic methodlogy](http
 
 To get started, use the following guides as a checklist to help you host and/or develop our application:
 
+Before setting up those environments, you may want to check out the [development reference](development/core.md) to get a better understanding of the project structure and development workflow.
 ## Setup development
 - Refer to [Preparation](development/preparation.md) to setup prerequisities to run our application.
+- [Run our application](development/setup.md)
 - Setup necessary [environment variables](development/environment.md) and configuration.
-- Then, run our application
-- Ensure the application is running correctly
 
 ## Deploy to your own server
-- See the deployment prerequisites for necessary software.
-- Before deploying, view the requirements to see if our application can run on your server.
-- Follow the deployment guide here to deploy your application to your own server.
+- See the [deployment prerequisites](deployment/preparation.md) for necessary software.
+- Before deploying, view the [requirements](deployment/requirements.md) to see if our application can run on your server.
+- Follow the [deployment guide](deployment/deployment.md) to deploy your application to your own server.
 
+After finishing the deployment/development, or if you have any trouble initializing langfuse during setup, see the [langfuse](additional setup/langfuse.md) guide for more details.
 
 ## SocratesCode Tutorials
 Already got the application running, or have it deployed to your own server? Then, you can start to use SocratesCode to learn programming.
 
-- Chatting with our AI tutor
-- Create a new account
-- Manage your account
+- [Chatting with our AI tutor](tutorial/chatting.md)
+- [Create a new account](tutorial/auth.md)
+- [Manage your account](tutorial/auth.md)

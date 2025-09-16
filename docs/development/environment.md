@@ -39,7 +39,7 @@ USER_DATA_BUCKET=userdata # user data bucket
 MINIO_DEFAULT_REGION=us-east-1 # default region
 ```
 
-Qdrant: WIP
+<!-- Qdrant: WIP -->
 
 Additionally, agent token is needed so that our backend's socket.io works properly
 ```env

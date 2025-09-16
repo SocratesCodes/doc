@@ -1,17 +1,6 @@
-# SocratesCode Development Guide
+# SocratesCode Development Reference
 
-## Table of Contents
-- [Development Workflow](#development-workflow)
-- [Code Organization](#code-organization)
-- [Branch Strategy](#branch-strategy)
-- [Testing Strategy](#testing-strategy)
-- [Code Standards](#code-standards)
-- [API Development](#api-development)
-- [Frontend Development](#frontend-development)
-- [AI Service Development](#ai-service-development)
-- [Debugging and Troubleshooting](#debugging-and-troubleshooting)
-- [Contributing Guidelines](#contributing-guidelines)
-
+This guide provides a comprehensive reference for developing SocratesCode, covering project structure, development workflow, testing strategies, and best practices.
 ## Development Workflow
 
 ### Getting Started
