@@ -5,7 +5,7 @@ This guide assumes you have already met the minimum [requirements](requirements.
 ## Environment variables
 These are set in the Environment Variables section of the Coolify app. Make sure you have configured the project beforehand based on [this guide from Coolify](https://coolify.io/docs/knowledge-base/git/github/integration).
 
-Most of the environment variables are similar to [development environment variables](development/environment.md).
+Most of the environment variables are similar to [development environment variables](../development/environment.md).
 
 However, there are some differences:
 

@@ -60,5 +60,5 @@ Now that you have set up the development environment and run the whole applicati
 ## What to do from here
 After setting up the development environment, you should [validate functionality] and make sure everything is working as expected.
 
-Want to deploy to your own server? See [Deployment](/deployment/intro.md) for more details.
+Ready to deploy to your own server? See [Deployment](../deployment/intro.md) for more details.
 
