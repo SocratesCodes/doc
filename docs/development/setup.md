@@ -5,6 +5,7 @@ To set up your local development environment, follow these steps:
 1. In your desired folder, clone the repository:
 ```bash
 git clone https://github.com/SocratesCodes/socratescode.git
+git checkout demo # checkout to demo branch to get the latest version
 ```
 
     ??? note "Validate the project structure"
