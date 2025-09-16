@@ -111,4 +111,4 @@ The main difference compared to the Coolify's template is that both `MINIO_SERVE
 8. On Coolify, access the resource container's terminal and perform step 5 and 6 of the local setup above.
 
 ## What's next?
-Check other other [development setup guides](../development/preparation.md) and [deployment setup guides](../deployment/deployment.md) for more details.
+Check other [development prerequisites guides](../development/preparation.md) and [deployment prerequisites guides](../deployment/deployment.md) for other requirements if unmet.
