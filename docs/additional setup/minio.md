@@ -67,7 +67,7 @@ mc anonymous set download local/<YOUR_AVATAR_BUCKET>
 ```
 where `<YOUR_AVATAR_BUCKET>` is the name of the avatars bucket you created.
 
-At this point, you should be able to use our application with full functionality locally.
+At this point, you should be able to change profile picture, as well as AI should work properly. Additional configurations may needed (see [here](../development/environment.md) and [preparation](../deployment/preparation.md) for more details).
 
 ## Setup MinIO on your own server
 !!! info "Prerequisites"
@@ -109,3 +109,6 @@ The main difference compared to the Coolify's template is that both `MINIO_SERVE
 6. Access the MinIO console url, authenticate and then perform step 2 of the local setup above.
 7. Set MinIO configured credentials in your application's [environment variables](../development/environment.md#backend-service):
 8. On Coolify, access the resource container's terminal and perform step 5 and 6 of the local setup above.
+
+## What's next?
+Check other other [development setup guides](../development/preparation.md) and [deployment setup guides](../deployment/deployment.md) for more details.
