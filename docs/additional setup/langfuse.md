@@ -1,7 +1,7 @@
-# AI Monitoring and Observability
+# Monitoring and Observability
 
 !!! warning "Warning"
-    This should be done after you have already deployed the application to your own server.
+    This should be done during deployment and application development.
 
 To ensure our application's stability and performance (especially AI service) and catch any bugs occurred, in this guide we will help you set up services that monitors our application.
 
@@ -47,3 +47,7 @@ User can select if they like the response or not, and also add additional commen
 You can also view this information along with the trace that user feedback on by clicking on the Trace name within the Scores section:
 ![Feedback on Langfuse](public/images/feedback_on_langfuse_3.png)
 ![Feedback on Langfuse](public/images/feedback_on_langfuse_2.png)
+
+## Sentry for service monitoring
+!!! warning "Doc in construction"
+    This section is still under construction and will be updated soon.
