@@ -101,13 +101,15 @@ services:
 The main difference compared to the Coolify's template is that both `MINIO_SERVER_URL` and `MINIO_BROWSER_REDIRECT_URL` are not needed.
 
 4. Configure Service Specific Configurations to match your preferences.
-!!! warning "Warning"
-    per [this](https://coolify.io/docs/services/minio), you need to run MinIO on https since it don't support http authentication.
 
-    Also for URL, you may need a domain to access the MinIO console.
+    !!! warning "Warning"
+        per [this](https://coolify.io/docs/services/minio), you need to run MinIO on https since it don't support http authentication.
+
+        Also for URL, you may need a domain to access the MinIO console.
+
 5. Deploy the resource.
 6. Access the MinIO console url, authenticate and then perform step 2 of the local setup above.
-7. Set MinIO configured credentials in your application's [environment variables](../development/environment.md#backend-service):
+7. Set MinIO configured credentials in your application's [environment variables](../development/environment.md#backend-service).
 8. On Coolify, access the resource container's terminal and perform step 5 and 6 of the local setup above.
 
 ## What's next?

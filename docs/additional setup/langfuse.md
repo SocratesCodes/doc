@@ -13,7 +13,7 @@ By the end of this section, you should be able to:
 - View, analyze and intepret how our AI works and its performance via Langfuse.
 - See the feedback from user via Langfuse.
 
-We will often refers to [langfuse official documentation](https://langfuse.com/docs) to explain how to use the platform as well as setup it in the application.
+We will often refers to [Langfuse official documentation](https://langfuse.com/docs) to explain how to use the platform as well as setup it in the application.
 
 ### Setup Langfuse
 

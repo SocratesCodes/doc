@@ -10,6 +10,7 @@ To get started, use the following guides as a checklist to help you host and/or 
 Before setting up those environments, you may want to check out the [development reference](development/core.md) to get a better understanding of the project structure and development workflow.
 ## Setup development
 - Refer to [Preparation](development/preparation.md) to setup prerequisities to run our application.
+- Generate PEM keys file with Openssl as described in [here](development/keys.md).
 - [Run our application](development/setup.md)
 - Setup necessary [environment variables](development/environment.md) and configuration.
 

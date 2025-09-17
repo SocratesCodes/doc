@@ -6,6 +6,7 @@ This guide assumes you have already setup/deployed the application. See [here](.
 
 ## Create a new account
 On the homepage:
+
 - Click on the 'Create Account' button
 - Fill in the required information
     - When setting the password, ensure that it mets all the requirements displayed on the page. We have a guide to help you set password directly on the page, and it will show a green checkmark for each criteria that is met.
