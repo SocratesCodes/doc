@@ -2,6 +2,11 @@
 !!! warning "Warning"
     Before filling in the environment variables, make sure you have created the `.env` file in the `/ai/`, `/apps/backend/` and `/apps/frontend/` folders and have setup project prerequisites as described in [Preparation](preparation.md).
 
+!!! warning "Work in progress"
+    This guide is still under development. Although at the moment the following guide should be enough to get you started, we will be updating it in the future as some of the features are still in development and these will be required to be configured.
+
+!!! warning "for macos users"
+    In these example we used port 5000 for backend service. This port is already in use by the macOS system. You will need to change the port to 5001. If you want to use this port, you may need to disable Airplay Receiver, a macOS service. See [here](https://stackoverflow.com/questions/72369320/why-always-something-is-running-at-port-5000-on-my-mac) for more details.
 ## AI service
 These below configurations will be used in the `.env` file in the `/ai/` folder.
 

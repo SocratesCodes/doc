@@ -10,3 +10,5 @@ Before running this, ensure you have OpenSSL installed on your machine. You can 
   openssl genpkey -algorithm RSA -out "./private_key.pem" -pkeyopt rsa_keygen_bits:2048
   openssl rsa -pubout -in "./private_key.pem" -out "./public_key.pem"
 ```
+
+After generating the keys, you can continue to [setup the development environment](setup.md).

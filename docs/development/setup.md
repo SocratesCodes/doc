@@ -1,5 +1,8 @@
 # Spin up local development environment
 
+!!! warning "Warning"
+    Before starting, ensure you have necessary prerequisites and have configured the necessary cloud services as described in [Preparation](preparation.md).
+
 To set up your local development environment, follow these steps:
 
 1. In your desired folder, clone the repository:
@@ -36,7 +39,7 @@ npm install
 
 4. Create an `.env` file in following places:
 `/ai/` folder (for AI service), `/apps/backend/` folder (for backend service) and `/apps/frontend/` folder (for frontend service)
-
+5. Generate PEM keys file with Openssl as described in [here](keys.md).
 5. Setup necessary `.env` variables with [environments variable](environment.md) guides
 6. Start the development server:
 ```bash
@@ -51,9 +54,9 @@ npm run dev
         npm run dev:ai # run this only if you want to run AI service
         ```
 
-This will start all server development servers concurrently.
-!!! warning "Warning"
-    Ensure you have set up all necessary environment variables in the `.env` files before starting the development server to avoid any possible bugs that stem from misconfiguration.
+  This will start all server development servers concurrently.
+  !!! warning "Warning"
+      Ensure you have set up all necessary environment variables in the `.env` files before starting the development server to avoid any possible bugs that stem from misconfiguration.
 
 Now that you have set up the development environment and run the whole application stack, you can begin using SocratesCode for testing, development or simply just use it. To validate the development environment, you can visit localhost:3000 to access the frontend page. 
 
