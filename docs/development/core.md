@@ -23,6 +23,8 @@ Setup MinIO with the following guide: [here](../additional setup/minio.md) for m
 !!! info "MinIO credentials"
     Change the `ROOTNAME` and `CHANGEME123` to your own and keep them somewhere safe as it is required for the next step.
 
+!!! info "Folder for MinIO data"
+    Create a folder for MinIO data. In this guide, we will use `~/minio/data` as the folder for MinIO data. (This will refers to your home directory. Create it if it doesn't exist.)
 
 ```bash
 podman run \
@@ -49,6 +51,7 @@ podman run `
    quay.io/minio/minio server /data --console-address ":9001"
 ```
 
+Given you followed the exact command above, you should be able to access the MinIO console at `http://localhost:9001`. Login and create buckets for the project. One for storing team state and one for storing avatars image. Remember the names of the buckets as they will be used in the next step. For default one, you should create two buckets: `json-files` and `userdata`.
 
 ### Set up environment variables
 Set those environment variables as described in [Environment Variables](environment.md) based on the prerequisites you have created/installed.
