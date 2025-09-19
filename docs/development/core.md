@@ -20,7 +20,10 @@ After install Python, you will need to install globally [pipenv](https://pipenv.
 
 Setup MinIO with the following guide: [here](../additional setup/minio.md) for more details. For quick setup, below is the command to run MinIO locally:
 
-Change the `ROOTNAME` and `CHANGEME123` to your own and keep them somewhere safe as it is required for the next step.
+!!! info "MinIO credentials"
+    Change the `ROOTNAME` and `CHANGEME123` to your own and keep them somewhere safe as it is required for the next step.
+
+
 ```bash
 podman run \
    -p 9000:9000 \
