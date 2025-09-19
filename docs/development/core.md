@@ -110,6 +110,7 @@ Visit http://localhost:3000 to access the frontend page.
 ### Development Environment URLs
 Change those ports to 5001 if you are using macOS.
 See [here](https://stackoverflow.com/questions/72369320/why-always-something-is-running-at-port-5000-on-my-mac) for more details.
+
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:5000/api/health
 - **API Documentation**: http://localhost:5000/api-docs
