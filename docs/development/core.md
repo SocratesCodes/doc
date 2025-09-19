@@ -53,6 +53,25 @@ podman run `
 
 Given you followed the exact command above, you should be able to access the MinIO console at `http://localhost:9001`. Login and create buckets for the project. One for storing team state and one for storing avatars image. Remember the names of the buckets as they will be used in the next step. For default one, you should create two buckets: `json-files` and `userdata`.
 
+Access the podman container to run commands:
+```bash
+podman exec -it minio bash
+```
+
+Authenticate the `mc` client:
+```bash
+mc alias set local http://127.0.0.1:9000 ROOTNAME CHANGEME123
+```
+
+Enable download policy for the avatars bucket. This is essential for the frontend to be able to download the avatars.
+
+```bash
+mc anonymous set download local/<YOUR_AVATAR_BUCKET>
+```
+where `<YOUR_AVATAR_BUCKET>` is the name of the avatars bucket you created.
+
+
+
 ### Set up environment variables
 Set those environment variables as described in [Environment Variables](environment.md) based on the prerequisites you have created/installed.
 
