@@ -3,6 +3,7 @@
 MinIO is a distributed object storage system that is compatible with the S3 API. In our project, it is used to store team state and files. This step should be done during the [development](../development/environment.md) or [deployment](../deployment/environment.md) setup.
 
 By the end of this guide, you should be able to:
+
 - Setup MinIO locally with Podman
 - Setup MinIO on your own server with Coolify.
 
