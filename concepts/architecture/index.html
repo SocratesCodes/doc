@@ -1,0 +1,2282 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../additional%20setup/minio/">
+      
+      
+        <link rel="next" href="../../deployment/deployment/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>SocratesCode System Architecture Reference - SocratesCode Development Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#socratescode-system-architecture-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SocratesCode Development Docs" class="md-header__button md-logo" aria-label="SocratesCode Development Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SocratesCode Development Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SocratesCode System Architecture Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SocratesCode Development Docs" class="md-nav__button md-logo" aria-label="SocratesCode Development Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    SocratesCode Development Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SocratesCode Development Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Additional setup
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Additional setup
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../additional%20setup/langfuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring and Observability
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../additional%20setup/minio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Storing application files with MinIO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    SocratesCode System Architecture Reference
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    SocratesCode System Architecture Reference
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#application-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Application Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Application Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#technology-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technology Stack
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overall-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overall Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#service-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Service Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-ai-service-pythonfastapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. AI Service (Python/FastAPI)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. AI Service (Python/FastAPI)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#location-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      Location: /ai/
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Location: /ai/">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multi-agent-tutoring-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Agent Tutoring System
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-agent-system-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Agent System Workflow:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Components:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-aimodel_configyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration (ai/model_config.yaml):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-operations-aifile_operationspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Operations (ai/file_operations.py):
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-backend-service-nodejsexpress" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Backend Service (Node.js/Express)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Backend Service (Node.js/Express)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#location-appsbackend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Location: /apps/backend/
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-frontend-service-nextjsreact" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Frontend Service (Next.js/React)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Frontend Service (Next.js/React)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#location-appsfrontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Location: /apps/frontend/
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-documentation-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Documentation Service
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Documentation Service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#location-appsdocs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Location: /apps/docs/
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multi-container-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-container Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multi-container Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ai-service-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      AI Service Container:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backend-service-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend Service Container:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontend-service-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend Service Container:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Container Communication:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-code-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detailed Code Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Code Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ai-service-deep-dive" class="md-nav__link">
+    <span class="md-ellipsis">
+      AI Service Deep Dive
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AI Service Deep Dive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agent-workflow-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent Workflow Implementation:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-management-with-mem0" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Management with Mem0:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backend-service-deep-dive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend Service Deep Dive
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backend Service Deep Dive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#websocket-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      WebSocket Management:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-persistence-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Persistence Pipeline:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontend-service-deep-dive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend Service Deep Dive
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frontend Service Deep Dive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-time-state-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-time State Management:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conversation-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conversation Management:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authentication-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication Flow:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Protection:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Deployment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deploy to your server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deployment environment variables
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/preparation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/requirements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deployment requirements
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SocratesCode Development Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Environment configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Generate keys with openssl
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/preparation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prepare your local development environment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Spin up local development environment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tutorial
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorial
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/auth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SocratesCode Authentication
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/chatting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chatting with our AI tutor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to SocratesCode
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/notebook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Notebook
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/profile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Profile management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#application-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Application Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Application Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#technology-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technology Stack
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overall-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overall Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#service-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Service Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-ai-service-pythonfastapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. AI Service (Python/FastAPI)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. AI Service (Python/FastAPI)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#location-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      Location: /ai/
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Location: /ai/">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multi-agent-tutoring-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Agent Tutoring System
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-agent-system-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Agent System Workflow:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Components:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-aimodel_configyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration (ai/model_config.yaml):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-operations-aifile_operationspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Operations (ai/file_operations.py):
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-backend-service-nodejsexpress" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Backend Service (Node.js/Express)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Backend Service (Node.js/Express)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#location-appsbackend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Location: /apps/backend/
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-frontend-service-nextjsreact" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Frontend Service (Next.js/React)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Frontend Service (Next.js/React)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#location-appsfrontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Location: /apps/frontend/
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-documentation-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Documentation Service
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Documentation Service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#location-appsdocs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Location: /apps/docs/
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multi-container-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-container Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multi-container Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ai-service-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      AI Service Container:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backend-service-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend Service Container:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontend-service-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend Service Container:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Container Communication:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-code-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detailed Code Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Code Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ai-service-deep-dive" class="md-nav__link">
+    <span class="md-ellipsis">
+      AI Service Deep Dive
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AI Service Deep Dive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agent-workflow-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent Workflow Implementation:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-management-with-mem0" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Management with Mem0:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backend-service-deep-dive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend Service Deep Dive
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backend Service Deep Dive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#websocket-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      WebSocket Management:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-persistence-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Persistence Pipeline:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontend-service-deep-dive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend Service Deep Dive
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frontend Service Deep Dive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-time-state-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-time State Management:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conversation-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conversation Management:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authentication-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication Flow:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Protection:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="socratescode-system-architecture-reference">SocratesCode System Architecture Reference</h1>
+<h2 id="application-overview">Application Overview</h2>
+<p>SocratesCode is an AI Tutoring application that uses the Socratic method to teach programming. The system is built with a microservices architecture consisting of 3 main services: AI Service (Python/FastAPI), Backend Service (Node.js/Express), and Frontend Service (Next.js/React).</p>
+<h3 id="technology-stack">Technology Stack</h3>
+<ul>
+<li><strong>Frontend</strong>: Next.js 15.3.1 with React 19, TypeScript, Tailwind CSS</li>
+<li><strong>Backend API</strong>: Node.js with Express, Socket.IO for realtime communication</li>
+<li><strong>AI Service</strong>: Python 3.12 with FastAPI, AutoGen multi-agent framework</li>
+<li><strong>Database</strong>: Supabase (PostgreSQL) for data persistence</li>
+<li><strong>Memory/Vector Store</strong>: Mem0 for user assessment and conversation history</li>
+<li><strong>File Storage</strong>: MinIO for team state and files</li>
+<li><strong>Monitoring</strong>: Sentry, Langfuse for AI observability</li>
+<li><strong>Authentication</strong>: JWT-based with RSA256 key pairs</li>
+<li><strong>Real-time Communication</strong>: Socket.IO for chat interface and AI coordination</li>
+</ul>
+<h2 id="overall-architecture">Overall Architecture</h2>
+<pre class="mermaid"><code>graph TB
+    User[User Browser] --&gt; Frontend[Frontend Service&lt;br/&gt;Next.js:3000]
+    Frontend --&gt; Backend[Backend Service&lt;br/&gt;Node.js:5000]
+    Backend --&gt; AI[AI Service&lt;br/&gt;Python:8002]
+    Backend --&gt; DB[(Supabase PostgreSQL)]
+    AI --&gt; Memory[(Mem0 Vector Store)]
+    AI --&gt; Files[(MinIO File Storage)]
+    Backend &lt;--&gt; Socket{Socket.IO&lt;br/&gt;Real-time}
+    AI &lt;--&gt; Socket
+    Frontend &lt;--&gt; Socket
+    AI --&gt; OpenAI[OpenAI API]
+    Backend --&gt; Sentry[Sentry Monitoring]
+    AI --&gt; Langfuse[Langfuse AI Tracing]</code></pre>
+<h2 id="service-architecture">Service Architecture</h2>
+<h3 id="1-ai-service-pythonfastapi">1. AI Service (Python/FastAPI)</h3>
+<h4 id="location-ai">Location: <code>/ai/</code></h4>
+<h5 id="multi-agent-tutoring-system">Multi-Agent Tutoring System</h5>
+<ul>
+<li><strong>GreetingAgent</strong>: Input gatekeeper, classifies queries into simple/CS-related/off-topic</li>
+<li><strong>EvaluationAgent</strong>: Evaluates skill level, creates structured analysis with correctness_score and reasoning_score</li>
+<li><strong>SocraticTutorAgent</strong>: Creates 3 Socratic questions (P1: Conceptual, P2: Analogical, P3: Practical)</li>
+<li><strong>ValidationAgent</strong>: Checks response quality with detailed scoring (0-100), detects code violations</li>
+<li><strong>EndNode</strong>: Terminal node for conversation flow</li>
+</ul>
+<h4 id="multi-agent-system-workflow">Multi-Agent System Workflow:</h4>
+<pre class="mermaid"><code>graph LR
+    A[User Input] --&gt; B[GreetingAgent]
+    B --&gt; C[EvaluationAgent]
+    C --&gt; D[SocraticTutorAgent]
+    D --&gt; E[ValidationAgent]
+    E --&gt; F[GreetingAgent]
+    F --&gt; G[End]</code></pre>
+<h4 id="core-components">Core Components:</h4>
+<p><strong>ConversationManager</strong> (<code>ai/ConversationManager.py</code>):</p>
+<ul>
+<li>Manages multiple conversations with LRU caching (max 50 conversations)</li>
+<li>Load/save team state from MinIO storage</li>
+<li>Integration with Mem0 for user memory and evaluation storage</li>
+<li>Handles temporary conversations (prefix <code>temp_</code>)</li>
+</ul>
+<p><strong>Team Creation &amp; State Management</strong>:</p>
+<ul>
+<li>GraphFlow configuration with conditional routing</li>
+<li>Auto-save team state to MinIO after each conversation</li>
+<li>Memory context injection for agents from Mem0</li>
+</ul>
+<p><strong>Real-time Communication</strong>:</p>
+<ul>
+<li>Socket.IO client connection to Backend Service</li>
+<li>Room-based messaging with conversation IDs</li>
+<li>WebSocket message filtering and processing</li>
+<li>Langfuse tracing for each AI stream processing</li>
+</ul>
+<h4 id="configuration-aimodel_configyaml">Configuration (<code>ai/model_config.yaml</code>):</h4>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">orchestrator_agent</span><span class="p">:</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">autogen_ext.models.openai.OpenAIChatCompletionClient</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">config</span><span class="p">:</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${MODEL_NAME}</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${MODEL_API_KEY}</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.6</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nt">top_p</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.85</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nt">top_k</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">40</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nt">validation_agent</span><span class="p">:</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">autogen_ext.models.openai.OpenAIChatCompletionClient</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="nt">config</span><span class="p">:</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${MODEL_NAME}</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${MODEL_API_KEY}</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="nt">top_p</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="nt">top_k</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="nt">socratic_tutor_agent</span><span class="p">:</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">autogen_ext.models.openai.OpenAIChatCompletionClient</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">  </span><span class="nt">config</span><span class="p">:</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${MODEL_NAME}</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${MODEL_API_KEY}</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="nt">greeting_agent</span><span class="p">:</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">autogen_ext.models.openai.OpenAIChatCompletionClient</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">  </span><span class="nt">config</span><span class="p">:</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${MODEL_NAME}</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${MODEL_API_KEY}</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.4</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="nt">evaluation_agent</span><span class="p">:</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">autogen_ext.models.openai.OpenAIChatCompletionClient</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">  </span><span class="nt">config</span><span class="p">:</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${MODEL_NAME}</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${MODEL_API_KEY}</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">    </span><span class="nt">top_p</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="w">    </span><span class="nt">top_k</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+</span></code></pre></div>
+<h4 id="file-operations-aifile_operationspy">File Operations (<code>ai/file_operations.py</code>):</h4>
+<ul>
+<li>MinIO integration for team state upload/download</li>
+<li>Async file operations with aiofiles</li>
+</ul>
+<h3 id="2-backend-service-nodejsexpress">2. Backend Service (Node.js/Express)</h3>
+<h4 id="location-appsbackend">Location: <code>/apps/backend/</code></h4>
+<p><strong>Real-time Communication Engine</strong> (<code>src/ws/webSocketServer.js</code>):</p>
+<ul>
+<li>Socket.IO server with CORS configuration</li>
+<li>Room-based conversation management</li>
+<li>Temporary conversation handling with automatic cleanup (5 minutes for leave, 1 minute for disconnect)</li>
+<li>Message persistence and broadcasting</li>
+<li>Authentication middleware with JWT verification</li>
+</ul>
+<p><strong>API Endpoints</strong> (<code>src/routes/</code>):</p>
+<ul>
+<li><strong>Account Management</strong>: Registration, login, logout with bcrypt password hashing</li>
+<li><strong>Message API</strong>: CRUD operations with sequence numbering, conversation membership validation</li>
+<li><strong>Conversation API</strong>: Create/manage conversations, title generation, participant management</li>
+<li><strong>User Preferences</strong>: Skill level settings per conversation</li>
+<li><strong>Notebook System</strong>: Rich text note-taking with Tiptap integration</li>
+<li><strong>File Management</strong>: MinIO integration for file uploads</li>
+<li><strong>User Feedback</strong>: Rating system with Langfuse trace IDs</li>
+</ul>
+<p><strong>Security &amp; Middleware</strong>:</p>
+<ul>
+<li>JWT authentication with RSA256 key pairs</li>
+<li>Rate limiting with express-rate-limit</li>
+<li>CORS configuration for multiple origins</li>
+<li>Security headers and input validation</li>
+<li>Cookie-based token management</li>
+</ul>
+<p><strong>Database Integration</strong> (<code>src/db/</code>):</p>
+<ul>
+<li>Supabase SDK for ORM operations</li>
+<li>Raw PostgreSQL queries with <code>postgres</code> library</li>
+<li>Connection pooling and error handling</li>
+</ul>
+<p><strong>Services Layer</strong> (<code>src/services/</code>):</p>
+<ul>
+<li><strong>MessageService</strong>: Message CRUD, conversation timestamp updates, AI agent message handling</li>
+<li><strong>AuthService</strong>: Conversation membership validation, existence checks</li>
+<li><strong>AccountService</strong>: User registration, profile management</li>
+<li><strong>FileService</strong>: MinIO file operations</li>
+<li><strong>CacheService</strong>: Redis-like caching layer</li>
+<li><strong>ThreadService</strong>: Conversation thread management</li>
+</ul>
+<h3 id="3-frontend-service-nextjsreact">3. Frontend Service (Next.js/React)</h3>
+<h4 id="location-appsfrontend">Location: <code>/apps/frontend/</code></h4>
+<p><strong>Chat Interface</strong> (<code>components/chat/</code>):</p>
+<ul>
+<li><strong>ChatInterface.tsx</strong>: Main chat container with message display and input</li>
+<li><strong>ConversationWindow.tsx</strong>: Message history with markdown rendering</li>
+<li><strong>ChatInput.tsx</strong>: User input with real-time typing</li>
+<li><strong>MessageFeedback.tsx</strong>: Like/dislike system with Langfuse integration</li>
+<li><strong>UserPreference.tsx</strong>: Skill level selection per conversation</li>
+</ul>
+<p><strong>Sidebar &amp; Navigation</strong> (<code>components/chat/sidebar/</code>):</p>
+<ul>
+<li><strong>ThreadList.tsx</strong>: Conversation history with search and sort</li>
+<li><strong>ThreadSearchModal.tsx</strong>: Full-text search in conversations</li>
+<li><strong>DeleteThreadDialog.tsx</strong>: Confirmation dialogs for deletion</li>
+<li><strong>UserAccount.tsx</strong>: Profile management</li>
+</ul>
+<p><strong>Real-time Communication</strong> (<code>hooks/useAI.ts</code>):</p>
+<ul>
+<li>Zustand store for message state management</li>
+<li>Socket.IO client with reconnection logic</li>
+<li>Message deduplication and timestamp handling</li>
+<li>Status management per conversation (processing/ready/error)</li>
+</ul>
+<p><strong>Authentication System</strong> (<code>hooks/useAuth.ts</code>):</p>
+<ul>
+<li>Zustand persistent store with localStorage</li>
+<li>JWT token management</li>
+<li>Session validation and refresh</li>
+<li>Guest mode support</li>
+</ul>
+<p><strong>Thread Management</strong> (<code>hooks/useThreads.ts</code>):</p>
+<ul>
+<li>Local conversation history</li>
+<li>Thread filtering and sorting</li>
+<li>Current thread tracking</li>
+</ul>
+<p><strong>Notebook System</strong> (<code>components/notebook/Notebook.tsx</code>):</p>
+<ul>
+<li>Tiptap rich text editor</li>
+<li>Real-time saving with conversation association</li>
+<li>Resizable panel with drag handles</li>
+</ul>
+<p><strong>Core Page Logic</strong> (<code>app/chat/page.tsx</code>):</p>
+<ul>
+<li>AI Agent initialization with FastAPI calls</li>
+<li>Socket.IO connection management</li>
+<li>Conversation room switching</li>
+<li>Message history fetching</li>
+<li>Temporary conversation handling</li>
+<li>Notebook panel state management</li>
+</ul>
+<h3 id="4-documentation-service">4. Documentation Service</h3>
+<h4 id="location-appsdocs">Location: <code>/apps/docs/</code></h4>
+<p><strong>Next.js-based documentation</strong> with:</p>
+<ul>
+<li>MDX content support</li>
+<li>Search functionality</li>
+<li>Responsive design</li>
+<li>Development guides and tutorials</li>
+</ul>
+<h2 id="docker-configuration">Docker Configuration</h2>
+<h3 id="multi-container-architecture">Multi-container Architecture</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># docker-compose.yml</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">services</span><span class="p">:</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">ai_service</span><span class="p">:</span><span class="w">      </span><span class="c1"># Port 8002, Python/FastAPI</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">backend_service</span><span class="p">:</span><span class="w"> </span><span class="c1"># Port 5000, Node.js/Express  </span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">frontend_service</span><span class="p">:</span><span class="w"> </span><span class="c1"># Port 3000, Next.js</span>
+</span></code></pre></div>
+<h4 id="ai-service-container">AI Service Container:</h4>
+<ul>
+<li><strong>Base</strong>: Python 3.12-slim</li>
+<li><strong>Dependencies</strong>: Pipenv with autogen-agentchat, langfuse, mem0ai</li>
+<li>
+<p><strong>Build Process</strong>:</p>
+</li>
+<li>
+<p>Install pipenv and gcc compiler</p>
+</li>
+<li>Copy Pipfile and install dependencies</li>
+<li>Copy application code</li>
+<li>Expose port 8002</li>
+<li><strong>Runtime</strong>: <code>pipenv run python app_team.py</code></li>
+</ul>
+<h4 id="backend-service-container">Backend Service Container:</h4>
+<ul>
+<li><strong>Base</strong>: Node.js 22-slim</li>
+<li>
+<p><strong>Build Process</strong>:</p>
+</li>
+<li>
+<p>Install OpenSSL for key generation</p>
+</li>
+<li>Copy workspace configuration</li>
+<li>Install dependencies with <code>npm ci --workspace=apps/backend</code></li>
+<li>Set working directory</li>
+<li>Expose port 5000</li>
+<li><strong>Runtime</strong>: <code>node src/index.js</code></li>
+<li><strong>Key Management</strong>: RSA key pair generation in container</li>
+</ul>
+<h4 id="frontend-service-container">Frontend Service Container:</h4>
+<ul>
+<li><strong>Base</strong>: Node.js 22-slim</li>
+<li>
+<p><strong>Build Process</strong>:</p>
+</li>
+<li>
+<p>Copy workspace files</p>
+</li>
+<li>Install dependencies with <code>npm ci --workspace=apps/frontend</code></li>
+<li>Run Next.js build process</li>
+<li>Expose port 3000</li>
+<li><strong>Production</strong>: Static build with Next.js optimizations</li>
+</ul>
+<h3 id="container-communication">Container Communication:</h3>
+<ul>
+<li><strong>Internal Network</strong>: Docker bridge network</li>
+<li><strong>Service Discovery</strong>: Container names (ai_service, backend_service, frontend_service)</li>
+<li><strong>Volume Mapping</strong>: <code>./persistence:/app/apps/backend/persistence</code> for data persistence</li>
+</ul>
+<h2 id="detailed-code-architecture">Detailed Code Architecture</h2>
+<h3 id="ai-service-deep-dive">AI Service Deep Dive</h3>
+<h4 id="agent-workflow-implementation">Agent Workflow Implementation:</h4>
+<p><strong>Message Processing Pipeline</strong> (<code>ai/app_team.py:227-526</code>):
+</p><div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nd">@sio</span><span class="o">.</span><span class="n">event</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">message</span><span class="p">(</span><span class="n">raw_data</span><span class="p">):</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="c1"># 1. Parse and validate message</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="c1"># 2. Extract conversation_id</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="c1"># 3. Handle temporary conversations</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="c1"># 4. Skip non-user messages</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="c1"># 5. Create TextMessage with enhanced context</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="c1"># 6. Stream through multi-agent team</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="c1"># 7. Process validation and approval flow</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="c1"># 8. Store evaluations in Mem0</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="c1"># 9. Save team state</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="c1"># 10. Emit ready status</span>
+</span></code></pre></div><p></p>
+<p><strong>Team State Persistence</strong>:</p>
+<ul>
+<li>JSON serialization with datetime encoder</li>
+<li>MinIO upload/download with error handling</li>
+<li>Local file caching with team_state directory</li>
+<li>Conversation-specific state files: <code>team_state_{conversation_id}.json</code></li>
+</ul>
+<h4 id="memory-management-with-mem0">Memory Management with Mem0:</h4>
+<p><strong>User Assessment Storage</strong> (<code>ai/mem0_implement/MemoryManager.py</code>):
+</p><div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MemoryManager</span><span class="p">:</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">store_evaluation</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">conversation_id</span><span class="p">,</span> <span class="n">evaluation</span><span class="p">,</span> <span class="n">user_question</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_memories</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">conversation_id</span><span class="p">,</span> <span class="n">include_recent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></code></pre></div><p></p>
+<p><strong>Context Enhancement</strong> (<code>ai/utils/PromptBuilder.py</code>):</p>
+<ul>
+<li>Fetch conversation history from Backend API</li>
+<li>Build enhanced context with user assessments</li>
+<li>Inject memory context into agent prompts</li>
+</ul>
+<h3 id="backend-service-deep-dive">Backend Service Deep Dive</h3>
+<h4 id="websocket-management">WebSocket Management:</h4>
+<p><strong>Connection Lifecycle</strong>:
+</p><div class="language-javascript highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">// Authentication middleware</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nx">io</span><span class="p">.</span><span class="nx">use</span><span class="p">((</span><span class="nx">socket</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="c1">// JWT verification from cookie or auth header</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="c1">// Role assignment (USER/AI/guest)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="c1">// User extraction and logging</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">})</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1">// Room Management</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"join_room"</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">conversationId</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="c1">// Conversation room joining</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="c1">// User room tracking</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="c1">// Duplicate join prevention</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="p">})</span>
+</span></code></pre></div><p></p>
+<p><strong>Temporary Conversation System</strong>:</p>
+<ul>
+<li>Auto-generation with UUID prefix <code>temp_</code></li>
+<li>5-minute cleanup timer after leave room</li>
+<li>1-minute cleanup timer after disconnect</li>
+<li>AI agent notification system</li>
+<li>Automatic room joining for AI agents</li>
+</ul>
+<h4 id="message-persistence-pipeline">Message Persistence Pipeline:</h4>
+<p><strong>saveMessage Function</strong> (<code>src/services/messageService.js:21-123</code>):</p>
+<div class="language-javascript highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// 1. Validate message content and conversation membership</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1">// 2. Check AI agent source (orchestrator, socratic_tutor, etc.)</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1">// 3. Get max sequence number for ordering</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1">// 4. Insert into messages table with metadata</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1">// 5. Update conversation timestamp</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1">// 6. Return saved message with ID</span>
+</span></code></pre></div>
+<h3 id="frontend-service-deep-dive">Frontend Service Deep Dive</h3>
+<h4 id="real-time-state-management">Real-time State Management:</h4>
+<p><strong>useAI Hook</strong> (<code>hooks/useAI.ts</code>):</p>
+<ul>
+<li>Zustand store with message deduplication</li>
+<li>Status tracking per conversation</li>
+<li>Socket connection state management</li>
+<li>Message timestamp handling</li>
+</ul>
+<p><strong>Message Processing</strong> (<code>app/chat/page.tsx:347-405</code>):
+</p><div class="language-javascript highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nx">newSocket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"message"</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">message</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="c1">// 1. Filter system status messages</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="c1">// 2. Ignore user echo messages</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="c1">// 3. Filter messages from other conversations</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="c1">// 4. Add AI messages with trace_id</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="c1">// 5. Update conversation status</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">})</span>
+</span></code></pre></div><p></p>
+<h4 id="conversation-management">Conversation Management:</h4>
+<p><strong>Thread System</strong>:</p>
+<ul>
+<li>Local storage with Zustand persistence</li>
+<li>Conversation title generation</li>
+<li>Thread filtering and search</li>
+<li>Current thread tracking</li>
+</ul>
+<p><strong>Message History Fetching</strong>:</p>
+<div class="language-javascript highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">fetchMessages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">conversationId</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="c1">// 1. Clear existing messages</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="c1">// 2. Fetch from backend API</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="c1">// 3. Format message structure</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="c1">// 4. Update store state</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<h2 id="security-implementation">Security Implementation</h2>
+<h3 id="authentication-flow">Authentication Flow:</h3>
+<ol>
+<li><strong>User Registration</strong>: Bcrypt password hashing, email verification</li>
+<li><strong>Login Process</strong>: JWT token generation with RSA256 signing</li>
+<li><strong>Token Storage</strong>: HttpOnly cookies + localStorage backup</li>
+<li><strong>API Protection</strong>: Middleware validation on protected routes</li>
+<li><strong>WebSocket Auth</strong>: Token extraction from cookies or headers</li>
+</ol>
+<h3 id="data-protection">Data Protection:</h3>
+<ul>
+<li><strong>Input Validation</strong>: Express-validator for API inputs</li>
+<li><strong>SQL Injection</strong>: Parameterized queries with Supabase ORM</li>
+<li><strong>XSS Protection</strong>: Content sanitization in markdown rendering</li>
+<li><strong>CORS</strong>: Strict origin allowlist</li>
+<li><strong>Rate Limiting</strong>: Express-rate-limit for API endpoints</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../../additional%20setup/minio/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Storing application files with MinIO">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Storing application files with MinIO
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../deployment/deployment/" class="md-footer__link md-footer__link--next" aria-label="Next: Deploy to your server">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Deploy to your server
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "content.code.copy", "navigation.footer"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
