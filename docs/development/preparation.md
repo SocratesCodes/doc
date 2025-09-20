@@ -17,6 +17,12 @@ You will need the following tools installed on your local development machine:
 
 After install Python, you will need to install globally [pipenv](https://pipenv.pypa.io/en/latest/) for managing Python dependencies and environments.
 
+For qdrant, simply run the following command given you have installed Podman:
+```bash
+podman run -p 6333:6333 qdrant/qdrant
+```
+Your server should be able to access qdrant at `http://localhost:6333`, and dashboard at `http://localhost:6333/dashboard`. You may need to change this in environment variables afterward to match the port and the qdrant url.
+
 ## Cloud services
 
 Beside local, there are several cloud services that you will need to configure to run SocratesCode:

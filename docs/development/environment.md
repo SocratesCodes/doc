@@ -45,6 +45,18 @@ MINIO_DEFAULT_REGION=us-east-1 # default region
 ```
 
 <!-- Qdrant: WIP -->
+**Qdrant** for vector database assumed you have setup qdrant locally:
+```env
+QDRANT_HOST=localhost
+QDRANT_URL=localhost
+QDRANT_TIMEOUT_SECONDS=30
+QDRANT_PREFIX=
+QDRANT_DEBUG=1
+QDRANT_PORT=6333
+QDRANT_API_KEY=
+
+```
+Update those configurations to match the qdrant you have setup.
 
 
 
@@ -99,6 +111,7 @@ JSON_BUCKET= # json files bucket
 ```env
 OPENAI_API_KEY=
 ```
+
 
 Finally, `NODE_ENV` for determining the environment of the backend service. Since we are on local development, we will use `development`:
 ```env

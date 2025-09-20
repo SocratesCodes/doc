@@ -18,6 +18,13 @@ Follow these steps to set up your development environment.
 
 After install Python, you will need to install globally [pipenv](https://pipenv.pypa.io/en/latest/) for managing Python dependencies and environments.
 
+Setup qdrant locally with the following guide: [here](../additional setup/qdrant.md) for more details.
+For quick setup, below is the command to run qdrant locally:
+```bash
+podman run -p 6333:6333 qdrant/qdrant
+```
+Your server should be able to access qdrant at `http://localhost:6333`, and dashboard at `http://localhost:6333/dashboard`. You may need to change this in environment variables afterward to match the port and the qdrant url.
+
 Setup MinIO with the following guide: [here](../additional setup/minio.md) for more details. For quick setup, below is the command to run MinIO locally:
 
 !!! info "MinIO credentials"
